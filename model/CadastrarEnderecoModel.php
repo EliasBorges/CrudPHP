@@ -39,19 +39,26 @@ class CadastrarEnderecoModel{
 
 	public function consultarPorId($IdEndereco){
 		$consulta = $this->bd->prepare("SELECT * FROM endereco where IdEndereco = :id");
-		$consulta->bindParam(":id", $idEndereco);
+		$consulta->bindParam(":id", $IdEndereco);
 		$consulta->execute();
 
 		$endereco = $consulta->fetch();
 		return $endereco;
 	}
 
-	public function editar($IdEndereco){
-		$consulta = $this->bd->prepare("SELECT * FROM endereco where IdEndereco = :id");
+	public function update($IdEndereco, $logadouro, $numero, $bairro, $cidade, $cep, $complemento, $uf){
+		$consulta = $this->bd->prepare("UPDATE endereco SET Logradouro = :end, Numero = :nume, Bairro = :bai, Cidade = :cid, CEP = :cep, Complemento = :compl, CodigoIbge = :uf where IdEndereco = :id");
 		$consulta->bindParam(":id", $IdEndereco);
+		$consulta->bindParam(":end", $logadouro);
+		$consulta->bindParam(":nume", $numero);
+		$consulta->bindParam(":bai", $bairro);
+		$consulta->bindParam(":cid", $cidade);
+		$consulta->bindParam(":cep", $cep);
+		$consulta->bindParam(":compl", $complemento);
+		$consulta->bindParam(":uf", $uf);
+
+
 		$consulta->execute();
-		$endereco = $consulta->fetch();
-		return $endereco;
 	}
 
 }

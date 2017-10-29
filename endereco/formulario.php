@@ -10,42 +10,22 @@ $cep = "";
 $complemento = "";
 $uf = "";
 
-
+require_once('../model/CadastrarEnderecoModel.php');
 if( isset($_GET["id"])){
   $acao = "update";
 
   $CadastrarEnderecoModel = new CadastrarEnderecoModel();
 
   $endereco = $CadastrarEnderecoModel->consultarPorId($_GET["id"]);
-
-  $id = $endereco["codigo"];
-  $logadouro = $endereco["logadouro"];
-  $numero = $endereco["numero"];
-  $bairro = $endereco["bairro"];  
-  $cidade = $endereco["cidade"];
-  $cep = $endereco["cep"];
-  $complemento = $endereco["complemento"];
-  $uf = $endereco["uf"]; 
-
-  echo "<div class='card-panel teal lighten-2'>Categoria inserida com sucesso.</div>";
+  $id = $endereco["IdEndereco"];
+  $logadouro = $endereco["Logradouro"];
+  $numero = $endereco["Numero"];
+  $bairro = $endereco["Bairro"];  
+  $cidade = $endereco["Cidade"];
+  $cep = $endereco["CEP"];
+  $complemento = $endereco["Complemento"];
+  $uf = $endereco["CodigoIbge"]; 
 }
-
-if($acao == "update"){
-  $id = $endereco["Codigo"];
-  $logadouro = $endereco["Logadouro"];
-  $numero = $endereco["numero"];
-  $bairro = $endereco["bairro"];  
-  $cidade = $endereco["cidade"];
-  $cep = $endereco["cep"];
-  $complemento = $endereco["complemento"];
-  $uf = $endereco["uf"]; 
-
-  $CadastrarEnderecoModel->alterar($logadouro, $numero, $bairro, $cidade, $cep, $complemento, $uf);
-
-  echo "<div class='card-panel teal lighten-2'>Categoria editada com sucesso.</div>";
-}
-
-
 ?>
 <?php
 $conectar = mysqli_connect("localhost","root","","controleendereco") or die ("Erro na conex達o com o Banco de Dados");
@@ -63,23 +43,23 @@ $result = mysqli_query($conectar, $sql);
     <div class="form-group">
       <div class="col-sm-2">
         <label>Codigo</label>
-        <input type="text" class="form-control" name="codigo" disabled>
+        <input type="text" class="form-control" value="<?php echo $id ?>" name="codigo" readonly>
       </div>
 
       <div class="col-sm-4">
         <label>Logadouro</label>
-        <input type="text" class="form-control" name="logadouro" placeholder="Exemplo: Rua, Avenida">
+        <input type="text" class="form-control" name="logadouro" value="<?php echo $logadouro ?>" placeholder="Exemplo: Rua, Avenida">
       </div>
 
 
       <div class="col-sm-2">
         <label>Numero</label>
-        <input type="text" class="form-control" name="numero" placeholder="Digite o numero">
+        <input type="text" class="form-control" name="numero" value="<?php echo $numero ?>" placeholder="Digite o numero">
       </div>
 
       <div class="col-sm-4">
         <label>Bairro</label>
-        <input type="text" class="form-control" name="bairro" placeholder="Digite o bairro">
+        <input type="text" class="form-control" name="bairro" value="<?php echo $bairro ?>" placeholder="Digite o bairro">
       </div>
 
 
@@ -88,17 +68,17 @@ $result = mysqli_query($conectar, $sql);
     <div class="form-group">
       <div class="col-sm-4">
         <label>Cidade</label>
-        <input type="text" class="form-control" name="cidade" placeholder="Digite sua cidade">
+        <input type="text" class="form-control" name="cidade" value="<?php echo $cidade ?>" placeholder="Digite sua cidade">
       </div>
 
       <div class="col-sm-2">
         <label>CEP</label>
-        <input type="text" class="form-control" name="cep" placeholder="Digite o CEP">
+        <input type="text" class="form-control" name="cep" value="<?php echo $cep ?>" placeholder="Digite o CEP">
       </div>
 
       <div class="col-sm-2">
         <label>Complemento</label>
-        <input type="text" class="form-control" name="complemento" placeholder="Digite o complemento">
+        <input type="text" class="form-control" name="complemento" value="<?php echo $complemento ?>" placeholder="Digite o complemento">
       </div>
 
       <div class="col-sm-4">
@@ -108,9 +88,16 @@ $result = mysqli_query($conectar, $sql);
           <?php
 
           while($row = $result->fetch_assoc()){
-            echo'
-            <option value='.$row[CodigoIbge].'>'.$row[Sigla].' - '.$row[NomeEstado].'</option>
-            ';
+
+            if($row[CodigoIbge] == $uf){
+              echo'
+              <option value='.$row[CodigoIbge].' selected>'.$row[Sigla].' - '.$row[NomeEstado].'</option>
+              ';
+            } else{
+              echo'
+              <option value='.$row[CodigoIbge].'>'.$row[Sigla].' - '.$row[NomeEstado].'</option>
+              ';
+            }
           }
           ?>
         </select>

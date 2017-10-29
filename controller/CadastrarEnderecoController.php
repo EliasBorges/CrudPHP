@@ -26,10 +26,17 @@ if($acao == "delete"){
 	echo "<p class='bg-danger'>Usuário excluído.</p>";
 }
 
-if($acao == "editar"){
-	$IdEndereco = $_GET["id"];
-	$CadastrarEnderecoModel->editar($IdEndereco);
-	echo "<p class='bg-danger'>Usuário excluído.</p>";
+if($acao == "update"){
+	$IdEndereco = $_POST["codigo"];
+	$logadouro = $_POST["logadouro"];
+	$numero = $_POST["numero"];
+	$bairro = $_POST["bairro"];
+	$cidade = $_POST["cidade"];
+	$cep = $_POST["cep"];
+	$complemento = $_POST["complemento"];
+	$uf = $_POST["uf"];
+	$CadastrarEnderecoModel->update($IdEndereco, $logadouro, $numero, $bairro, $cidade, $cep, $complemento, $uf);
+	echo "<p class='bg-sucess'>Usuário editado com sucesso.</p>";
 }
 
 

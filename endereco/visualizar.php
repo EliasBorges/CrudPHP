@@ -40,7 +40,7 @@ $categorias = $CadastrarEnderecoModel->todas();
       <td><?= $c["Complemento"]?></td>
       <td><?= $c["NomeEstado"]?></td>
       <td>         
-       <a href="javascript:editar(<?= $c["IdEndereco"] ?>)">Editar</a> 
+       <a href="javascript:update(<?= $c["IdEndereco"] ?>)">Editar</a> 
      </td>
      <td>         
        <a href="javascript:excluir(<?= $c["IdEndereco"] ?>)">Excluir</a> 
@@ -65,8 +65,8 @@ function excluir(IdEndereco){
 })
 }
 
-function editar(IdEndereco){
- $("#formulario").load("formulario.php?id=" + IdEndereco, function(){
+function update(IdEndereco){
+ $("#cadastrarEndereco").load("formulario.php?id=" + IdEndereco, function(){
 
 });
 }
