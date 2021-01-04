@@ -53,3 +53,6 @@ INSERT INTO UnidadeFederativa (CodigoIbge,Sigla,NomeEstado) VALUES(42,'SC','Sant
 INSERT INTO UnidadeFederativa (CodigoIbge,Sigla,NomeEstado) VALUES(28,'SE','Sergipe');
 INSERT INTO UnidadeFederativa (CodigoIbge,Sigla,NomeEstado) VALUES(35,'SP','São Paulo');
 INSERT INTO UnidadeFederativa (CodigoIbge,Sigla,NomeEstado) VALUES(17,'TO','Tocantins');
+
+
+Teste
